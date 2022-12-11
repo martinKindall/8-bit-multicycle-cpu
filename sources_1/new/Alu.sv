@@ -1,26 +1,19 @@
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 12/11/2022 10:55:13 AM
-// Design Name: 
-// Module Name: Alu
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
 
-
-module Alu(
-
-    );
+// behavioural implementation
+module Alu #(parameter WIDTH=32) (
+    input logic [WIDTH-1:0] srca, srcb,
+    input logic [2:0] alucontrol,
+    output logic [WIDTH-1:0] aluout
+);
+    
+    always_comb
+        case (alucontrol)
+            3'b000: aluout <= srca & srcb;
+            3'b001: aluout <= srca | srcb;
+            3'b010: aluout <= srca + srcb;
+            3'b110: aluout <= srca - srcb;
+            3'b111: aluout <= srca < srcb;
+            default: aluout <= 0;
+        endcase
 endmodule
