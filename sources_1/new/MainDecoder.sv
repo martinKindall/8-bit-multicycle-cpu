@@ -1,13 +1,13 @@
 
 module MainDecoder(
-    input logic reset,
+    input logic reset, clk,
     input logic [3:0] opcode,
     input logic [7:0] aluout,
     output logic pcSelect, pcEnable, adrSelect,
     output logic ir1En, ir2En,
     output logic regSelect, wd3Select, regWrite,
     output logic op1Sel, op2Sel, aluOutEn,
-    output logic [2:0] aluControl,
+    output logic [2:0] aluControl
 );
 
     typedef enum logic [2:0] { S0, S1, S2, S3, S4, S5 } statetype;

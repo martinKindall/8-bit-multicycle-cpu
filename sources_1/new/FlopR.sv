@@ -8,7 +8,7 @@ module FlopR #(parameter WIDTH=8)(
     always_ff @(posedge clk)
         if (reset)
             q <= 0;
-        else
+        else if (enable)
             q <= d;
     
 endmodule
