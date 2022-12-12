@@ -31,6 +31,7 @@ module RegFile_TB;
             if ({rd1, rd2} !== {rd1Test, rd2Test}) begin
                 $display("Error: output = %b (%b expected)", {rd1, rd2}, {rd1Test, rd2Test});
                 $display("vectornum %b", vectornum);
+                errors = errors + 1;
             end
             vectornum = vectornum + 1;
             if (testvectors[vectornum] === 'x) begin 
