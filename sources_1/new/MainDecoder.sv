@@ -43,7 +43,7 @@ module MainDecoder(
     assign ir2En = (state == S1) ? 1 : 0;
     assign regSelect = (state == S3) ? 1 : 0;
     assign wd3Select = (state == S3) ? 1 : 0;
-    assign regWrite = (state == S3) ? 1 : 0;
+    assign regWrite = (state == S3 || state == S2 && opcode[1:0] == 2'b00) ? 1 : 0;
     assign op1Sel = (state == S0 || state == S1) ? 0 : 1;
     assign op2Sel = (state == S0 || state == S1) ? 1 : 0;
     assign aluControl = (state == S3 && opcode[1:0] == 2'b01) ? 3'b110 : 3'b010;

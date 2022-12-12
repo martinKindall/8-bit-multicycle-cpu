@@ -22,7 +22,7 @@ module CPUTop_TB();
     always @(negedge clk)
         begin
             if (memEnable) begin
-                if (memWD === 4) begin 
+                if (memWD === 8'hF4) begin 
                     $display("Simulation succeeded");
                     $stop;
                 end else begin
