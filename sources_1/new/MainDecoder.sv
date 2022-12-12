@@ -4,7 +4,7 @@ module MainDecoder(
     input logic [3:0] opcode,
     input logic [7:0] aluout,
     output logic pcSelect, pcEnable, adrSelect,
-    output logic ir1En, ir2En,
+    output logic memEnable, ir1En, ir2En,
     output logic regSelect, wd3Select, regWrite,
     output logic op1Sel, op2Sel, aluOutEn,
     output logic [2:0] aluControl
