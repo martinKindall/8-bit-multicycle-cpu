@@ -14,14 +14,14 @@ module Datapath(
     logic [3:0] a1;
     logic [7:0] ir1, ir2, wd3, rd1, rd2;
 
-    FlopR ir1Reg(clk, 0, ir1En, memRD, ir1);
-    FlopR ir2Reg(clk, 0, ir2En, memRD, ir2);
+    FlopR ir1Reg(clk, 1'b0, ir1En, memRD, ir1);
+    FlopR ir2Reg(clk, 1'b0, ir2En, memRD, ir2);
 
     FlopR pcReg(clk, reset, pcEnable, pcNext, pc);
     Mux2 muxPCSel(aluout, ir2, pcSelect, pcNext);
     Mux2 adrSel(pc, ir2, adrSelect, memAdr);
 
-    FlopR aluOutReg(clk, 0, aluOutEn, aluout, aluoutM);
+    FlopR aluOutReg(clk, 1'b0, aluOutEn, aluout, aluoutM);
 
     Alu #(8) alu(aluIn1, aluIn2, aluControl, aluout);
     Mux2 muxOp1Sel(pc, rd1, op1Sel, aluIn1);

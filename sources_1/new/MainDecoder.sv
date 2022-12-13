@@ -27,6 +27,7 @@ module MainDecoder(
                     2'b10: 
                         if (opcode[1:0] == 2'b11) nextstate <= S5;
                         else nextstate <= S4;
+                    default: nextstate <= S5;
                 endcase
             S2: nextstate <= S0;
             S3: nextstate <= S0;

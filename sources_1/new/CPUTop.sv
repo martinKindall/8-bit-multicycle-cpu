@@ -1,4 +1,4 @@
-
+ 
 module CPUTop(
     input logic clk, reset,
     output logic memEnable,

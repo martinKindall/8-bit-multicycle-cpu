@@ -10,7 +10,7 @@ module CPU(
 );
 
     logic [3:0] opcode;
-    logic regSelect, wd3Select, regWrite, aluOutEn;
+    logic regSelect, wd3Select, aluOutEn;
 
     MainDecoder decoder(
         reset, clk, opcode, aluoutM,
