@@ -21,12 +21,9 @@ module CPUTop_TB();
 
     always @(negedge clk)
         begin
-            if (memEnable) begin
-                if (memWD === 8'hF4) begin 
+            if (regWrite && aluIn2 == 0) begin
+                if (memWD === 8'h19) begin 
                     $display("Simulation succeeded");
-                    $stop;
-                end else begin
-                    $display("Simulation failed");
                     $stop;
                 end
             end
