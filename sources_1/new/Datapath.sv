@@ -11,27 +11,27 @@ module Datapath(
     output logic [3:0] opcode,
     output logic [7:0] memAdr, memWD, aluoutM, aluout, pcNext, pc, aluIn1, aluIn2
 );
-    logic [3:0] a1;
-    logic [7:0] ir1, ir2, wd3, rd1, rd2;
+    logic [3:0] a1Reg;
+    logic [7:0] ir1, ir2, wd3, rd2;
 
-    FlopR ir1Reg(clk, 1'b0, ir1En, memRD, ir1);
-    FlopR ir2Reg(clk, 1'b0, ir2En, memRD, ir2);
+    FlopRNoReset ir1Reg(clk, ir1En, memRD, ir1);
+    FlopRNoReset ir2Reg(clk, ir2En, memRD, ir2);
+    
+    RegFile regfile(clk, regWrite, a1Reg, ir2[3:0], ir1[3:0], wd3, memWD, rd2);
 
     FlopR pcReg(clk, reset, pcEnable, pcNext, pc);
     Mux2 muxPCSel(aluout, ir2, pcSelect, pcNext);
     Mux2 adrSel(pc, ir2, adrSelect, memAdr);
 
-    FlopR aluOutReg(clk, 1'b0, aluOutEn, aluout, aluoutM);
+    FlopRNoReset aluOutReg(clk, aluOutEn, aluout, aluoutM);
 
     Alu #(8) alu(aluIn1, aluIn2, aluControl, aluout);
-    Mux2 muxOp1Sel(pc, rd1, op1Sel, aluIn1);
+    Mux2 muxOp1Sel(pc, memWD, op1Sel, aluIn1);
     Mux2 muxOp2Sel(rd2, 8'b1, op2Sel, aluIn2);
 
-    RegFile regfile(clk, regWrite, a1, ir2[3:0], ir1[3:0], wd3, rd1, rd2);
-    Mux2 #(4) muxA1Sel(ir1[3:0], ir2[7:4], regSelect, a1);
+    Mux2 #(4) muxA1Sel(ir1[3:0], ir2[7:4], regSelect, a1Reg);
     Mux2 muxWD3Sel(memRD, aluout, wd3Select, wd3);
 
     assign opcode = ir1[7:4];
-    assign memWD = rd1;
 
 endmodule
